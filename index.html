@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0060)file:///C:/Users/adtg6/Downloads/forgemagie-optimizer_7.html -->
+<!-- saved from url=(0060)file:///C:/Users/adtg6/Downloads/forgemagie-optimizer_8.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1877,8 +1877,11 @@ async function loadIcons() {
       const res = await fetch(`${BASE}?query=${encodeURIComponent(name)}&limit=8`);
       if (!res.ok) return;
       const data = await res.json();
+      // Log debug pour les 4 premières runes
       if (['Vi','Fo','Tac','Fui'].includes(abrev) && tier === 'base') {
-        console.log('[RUNE] query=' + name + ' resultats:', data.slice(0,5).map(function(i){return i.name;}));
+        const noms = Array.isArray(data) ? data.slice(0,5).map(function(i){return i.name;}).join(' | ') : 'pas un tableau';
+        console.log('RUNE_DEBUG query=' + name + ' resultats=' + noms);
+        document.getElementById('apiStatus').textContent = name + ' -> ' + noms.slice(0,40);
       }
       const nameLow = name.toLowerCase();
       const item = Array.isArray(data) ? data.find(function(i){ return (i.name||'').toLowerCase() === nameLow; }) : null;
@@ -1887,9 +1890,8 @@ async function loadIcons() {
         if (!IMG_CACHE[abrev]) IMG_CACHE[abrev] = {};
         IMG_CACHE[abrev][tier] = imgUrl;
         loaded++;
-        status.textContent = 'Chargement... ' + loaded + '/' + toFetch.length;
       }
-    } catch(e) {}
+    } catch(e) { console.log('RUNE_ERR ' + name + ' : ' + e.message); }
   }
 
   // Batches de 8 en parallèle
