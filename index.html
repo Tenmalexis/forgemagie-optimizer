@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0060)file:///C:/Users/adtg6/Downloads/forgemagie-optimizer_8.html -->
+<!-- saved from url=(0060)file:///C:/Users/adtg6/Downloads/forgemagie-optimizer_9.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1864,7 +1864,7 @@ const IMG_CACHE = {};
 async function loadIcons() {
   const dot = document.getElementById('apiDot');
   const status = document.getElementById('apiStatus');
-  const BASE = 'https://api.dofusdude.de/dofus3/v1/fr/items/resources/search';
+  const BASE = 'https://api.dofusdu.de/dofus3/v1/fr/items/resources/search';
   let loaded = 0;
 
   const toFetch = [];
@@ -1877,21 +1877,22 @@ async function loadIcons() {
       const res = await fetch(`${BASE}?query=${encodeURIComponent(name)}&limit=8`);
       if (!res.ok) return;
       const data = await res.json();
-      // Log debug pour les 4 premières runes
-      if (['Vi','Fo','Tac','Fui'].includes(abrev) && tier === 'base') {
-        const noms = Array.isArray(data) ? data.slice(0,5).map(function(i){return i.name;}).join(' | ') : 'pas un tableau';
-        console.log('RUNE_DEBUG query=' + name + ' resultats=' + noms);
-        document.getElementById('apiStatus').textContent = name + ' -> ' + noms.slice(0,40);
+      if (!Array.isArray(data)) return;
+      // Log les 4 premières pour debug
+      if (['Vi','Tac','Fui','Ini'].includes(abrev) && tier === 'base') {
+        const noms = data.slice(0,3).map(function(i){return i.name;}).join(' / ');
+        console.log('RUNE query=' + name + ' => ' + noms);
       }
       const nameLow = name.toLowerCase();
-      const item = Array.isArray(data) ? data.find(function(i){ return (i.name||'').toLowerCase() === nameLow; }) : null;
-      const imgUrl = (item && item.image_urls && (item.image_urls.icon || item.image_urls.sd)) || '';
+      const item = data.find(function(i){ return (i.name||'').toLowerCase() === nameLow; });
+      const imgUrl = item && item.image_urls && (item.image_urls.icon || item.image_urls.sd);
       if (imgUrl) {
         if (!IMG_CACHE[abrev]) IMG_CACHE[abrev] = {};
         IMG_CACHE[abrev][tier] = imgUrl;
         loaded++;
+        status.textContent = 'Chargement... ' + loaded + '/' + toFetch.length;
       }
-    } catch(e) { console.log('RUNE_ERR ' + name + ' : ' + e.message); }
+    } catch(e) { console.log('ERR ' + name + ': ' + e.message); }
   }
 
   // Batches de 8 en parallèle
