@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)file:///C:/Users/adtg6/Downloads/forgemagie-optimizer_4.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forgemagie — Optimizer | TENMA</title>
+<link href="./Forgemagie — Optimizer _ TENMA_files/css2" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0c10;
+  --bg2: #10141c;
+  --bg3: #161b26;
+  --bg4: #1c2333;
+  --border: #2a3348;
+  --border-hover: #3d4f6e;
+  --gold: #f4b400;
+  --gold2: #ffcc44;
+  --gold-dim: rgba(244,180,0,0.15);
+  --gold-glow: rgba(244,180,0,0.25);
+  --text: #d4dbe8;
+  --text-muted: #7a8ba8;
+  --text-dim: #4a5770;
+  --green: #2ecc71;
+  --green-dim: rgba(46,204,113,0.15);
+  --red: #e74c3c;
+  --red-dim: rgba(231,76,60,0.15);
+  --blue: #3a9fd5;
+  --blue-dim: rgba(58,159,213,0.12);
+  --purple: #9b59b6;
+  --purple-dim: rgba(155,89,182,0.15);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Exo 2', sans-serif; font-size: 14px; min-height: 100vh; }
+
+header {
+  background: linear-gradient(135deg, #0d1018 0%, #141a27 100%);
+  border-bottom: 2px solid var(--gold);
+  padding: 12px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 4px 24px rgba(244,180,0,0.1);
+}
+.header-left { display: flex; align-items: center; gap: 14px; }
+.header-title { font-family: 'Rajdhani', sans-serif; font-size: 22px; font-weight: 700; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; }
+.header-sub { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; margin-top: 2px; }
+.yt-badge {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(255,0,0,0.12); border: 1px solid rgba(255,0,0,0.3);
+  border-radius: 5px; padding: 5px 10px; text-decoration: none;
+  font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 700;
+  color: #ff4444; letter-spacing: 1px; transition: all 0.2s;
+}
+.yt-badge:hover { background: rgba(255,0,0,0.22); border-color: #ff4444; }
+.save-indicator { font-size: 11px; color: var(--text-dim); background: var(--bg3); border: 1px solid var(--border); padding: 4px 10px; border-radius: 4px; transition: all 0.3s; }
+.save-indicator.saved { color: var(--green); border-color: var(--green); }
+
+.tabs { display: flex; gap: 2px; background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 24px; }
+.tab { font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 12px 20px; cursor: pointer; color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s; user-select: none; white-space: nowrap; }
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+.page { display: none; padding: 20px 24px; }
+.page.active { display: block; }
+
+/* Search bar */
+.search-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+.search-input { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 8px 14px; color: var(--text); font-family: 'Exo 2', sans-serif; font-size: 13px; width: 260px; transition: border-color 0.2s; }
+.search-input:focus { outline: none; border-color: var(--gold); }
+.search-input::placeholder { color: var(--text-dim); }
+
+.category-filter { display: flex; gap: 5px; flex-wrap: wrap; }
+.cat-btn { font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 5px 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg3); color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+.cat-btn:hover { border-color: var(--border-hover); color: var(--text); }
+.cat-btn.active { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); }
+
+.ratio-info { font-size: 11px; color: var(--text-dim); background: var(--bg4); border: 1px solid var(--border); border-radius: 4px; padding: 5px 10px; margin-left: auto; }
+.btn-clear-all { background: none; border: 1px solid var(--border); border-radius: 4px; padding: 5px 10px; color: var(--text-dim); font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
+.btn-clear-all:hover { border-color: var(--red); color: var(--red); }
+
+/* Rune groups */
+.rune-groups { display: flex; flex-direction: column; gap: 14px; }
+.rune-group { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.group-header { background: var(--bg3); border-bottom: 1px solid var(--border); padding: 9px 16px; display: flex; align-items: center; gap: 10px; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+.group-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+
+/* Table runes */
+.rune-group { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.rune-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.rune-table th {
+  font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted);
+  padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--bg3);
+  white-space: nowrap;
+}
+/* Colonne Rune : flex sur le reste ; colonnes prix : 180px fixes */
+.rune-table th:first-child  { text-align: left; }
+.rune-table th:not(:first-child) { text-align: center; width: 180px; }
+.rune-table tr { transition: background 0.15s; }
+.rune-table tbody tr:hover { background: rgba(255,255,255,0.025); }
+.rune-table td { padding: 8px 14px; border-bottom: 1px solid rgba(42,51,72,0.4); vertical-align: middle; }
+.rune-table td:not(:first-child) { text-align: center; width: 180px; }
+.rune-table tbody tr:last-child td { border-bottom: none; }
+
+/* Badge rune */
+.rune-info { display: flex; align-items: center; gap: 10px; }
+.rune-badge {
+  width: 36px; height: 36px; border-radius: 6px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Rajdhani', sans-serif; font-size: 10px; font-weight: 800;
+  letter-spacing: 0.5px; text-transform: uppercase; line-height: 1;
+  border: 1px solid transparent;
+}
+.rune-badge.type-carac { background: rgba(244,180,0,0.14); border-color: rgba(244,180,0,0.3); color: var(--gold); }
+.rune-badge.type-do    { background: rgba(231,76,60,0.14);  border-color: rgba(231,76,60,0.3);  color: #e74c3c; }
+.rune-badge.type-re    { background: rgba(58,159,213,0.14); border-color: rgba(58,159,213,0.3); color: var(--blue); }
+.rune-badge.type-div   { background: rgba(46,204,113,0.14); border-color: rgba(46,204,113,0.3); color: var(--green); }
+.rune-name-block .rune-name  { font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); }
+.rune-name-block .rune-abrev { font-size: 11px; color: var(--text-dim); margin-top: 1px; }
+
+/* Inputs prix — pleine largeur de leur colonne, bien lisibles */
+.price-cell { text-align: center; padding: 6px 14px; }
+.price-input {
+  background: var(--bg4); border: 1px solid var(--border); border-radius: 5px;
+  padding: 8px 10px; color: var(--gold); font-family: 'Rajdhani', sans-serif;
+  font-size: 15px; font-weight: 700; width: 100%;
+  text-align: center; transition: border-color 0.2s, box-shadow 0.2s;
+  display: block; box-sizing: border-box;
+}
+.price-input:focus { outline: none; border-color: var(--gold); background: var(--bg3); box-shadow: 0 0 0 2px var(--gold-dim); }
+.price-input::placeholder { color: #3d4f6e; font-weight: 600; font-size: 13px; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; }
+.no-tier { color: var(--text-dim); font-size: 18px; font-weight: 300; }
+
+.tier-badge { font-size: 11px; padding: 3px 8px; border-radius: 3px; font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 0.5px; }
+.tier-base { background: var(--bg4); color: var(--text-muted); border: 1px solid var(--border); }
+.tier-pa { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(58,159,213,0.3); }
+.tier-ra { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(155,89,182,0.3); }
+
+/* ─── PAGE 2 ─── */
+.conv-search-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+.conv-groups { display: flex; flex-direction: column; gap: 14px; }
+.conv-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: border-color 0.2s; }
+.conv-card:hover { border-color: var(--border-hover); }
+.conv-card-header { background: var(--bg3); border-bottom: 1px solid var(--border); padding: 9px 16px; display: flex; align-items: center; gap: 10px; }
+.conv-stat-name { font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); }
+.conv-stat-abrev { font-family: 'Rajdhani', sans-serif; font-size: 11px; color: var(--gold); background: var(--gold-dim); border: 1px solid rgba(244,180,0,0.3); padding: 2px 7px; border-radius: 3px; }
+
+.conv-body { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.conv-section { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; }
+.conv-section-title { font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.conv-section-title .arrow { color: var(--gold); font-size: 12px; }
+
+.conv-row { display: flex; align-items: center; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(42,51,72,0.4); gap: 8px; }
+.conv-row:last-of-type { border-bottom: none; }
+.conv-label { display: flex; align-items: center; gap: 6px; font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 600; color: var(--text-muted); }
+.conv-value { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 700; color: var(--gold); }
+.conv-value.no-price { color: var(--text-dim); font-size: 11px; font-weight: 400; }
+
+.conv-verdict { margin-top: 8px; padding: 7px 9px; border-radius: 5px; font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 600; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
+.verdict-win { background: var(--green-dim); border: 1px solid rgba(46,204,113,0.3); color: var(--green); }
+.verdict-lose { background: var(--red-dim); border: 1px solid rgba(231,76,60,0.3); color: var(--red); }
+.verdict-neutral { background: var(--bg4); border: 1px solid var(--border); color: var(--text-muted); }
+.verdict-pct { font-size: 11px; opacity: 0.8; margin-top: 1px; }
+.sub-hint { margin-top: 4px; font-size: 11px; color: var(--text-dim); }
+.sub-hint.green { color: var(--green); }
+
+/* ─── PAGE 3 ─── */
+.session-layout { display: grid; grid-template-columns: 360px 1fr; gap: 14px; align-items: start; }
+.session-panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.panel-title { background: var(--bg3); border-bottom: 1px solid var(--border); padding: 9px 14px; font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between; }
+.panel-body { padding: 12px; }
+.session-item-name { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 5px; padding: 7px 10px; color: var(--text); font-family: 'Exo 2', sans-serif; font-size: 13px; margin-bottom: 10px; }
+.session-item-name:focus { outline: none; border-color: var(--gold); }
+.session-item-name::placeholder { color: var(--text-dim); }
+.add-rune-row { display: flex; gap: 7px; margin-bottom: 10px; }
+.add-rune-select { background: var(--bg3); border: 1px solid var(--border); border-radius: 5px; padding: 6px 8px; color: var(--text); font-family: 'Exo 2', sans-serif; font-size: 12px; flex: 1; cursor: pointer; }
+.add-rune-select:focus { outline: none; border-color: var(--gold); }
+.add-rune-select option { background: var(--bg2); }
+.add-btn { background: var(--gold-dim); border: 1px solid var(--gold); border-radius: 5px; padding: 6px 12px; color: var(--gold); font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.add-btn:hover { background: rgba(244,180,0,0.25); }
+
+.session-lines { display: flex; flex-direction: column; gap: 6px; }
+.session-line { background: var(--bg3); border: 1px solid var(--border); border-radius: 5px; padding: 8px 10px; }
+.session-line-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.session-line-name { display: flex; align-items: center; gap: 6px; font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); }
+.del-btn { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 14px; padding: 0 2px; line-height: 1; transition: color 0.2s; }
+.del-btn:hover { color: var(--red); }
+.session-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.s-input-group label { font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; display: block; margin-bottom: 3px; }
+.s-input { width: 100%; background: var(--bg4); border: 1px solid var(--border); border-radius: 4px; padding: 4px 7px; color: var(--gold); font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 600; text-align: center; }
+.s-input:focus { outline: none; border-color: var(--gold); }
+.s-input::placeholder { color: var(--text-dim); font-weight: 400; font-size: 11px; }
+
+.tco-panel { display: flex; flex-direction: column; gap: 12px; }
+.tco-summary { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.tco-lines { padding: 10px 14px; display: flex; flex-direction: column; gap: 0; }
+.tco-line { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid rgba(42,51,72,0.4); font-size: 13px; gap: 8px; }
+.tco-line:last-child { border-bottom: none; }
+.tco-line-label { color: var(--text-muted); flex: 1; }
+.tco-line-val { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); white-space: nowrap; }
+.tco-total-bar { background: linear-gradient(135deg, var(--bg3) 0%, rgba(244,180,0,0.07) 100%); border-top: 1px solid var(--border); padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; }
+.tco-total-label { font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+.tco-total-val { font-family: 'Rajdhani', sans-serif; font-size: 22px; font-weight: 700; color: var(--gold); }
+.tco-item-name-display { font-size: 12px; color: var(--text-dim); padding: 0 14px 8px; font-style: italic; }
+
+.rentab-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.rentab-inputs { padding: 12px 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.r-input-group label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; display: block; letter-spacing: 0.5px; }
+.r-input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 5px; padding: 6px 10px; color: var(--gold); font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; text-align: center; }
+.r-input:focus { outline: none; border-color: var(--gold); }
+.r-input::placeholder { color: var(--text-dim); font-weight: 400; font-size: 11px; }
+.rentab-result { padding: 10px 14px; border-top: 1px solid var(--border); }
+.rentab-verdict { padding: 10px 12px; border-radius: 6px; font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 700; }
+.rentab-verdict .main-line { display: flex; align-items: center; gap: 8px; }
+.rentab-verdict .sub-line { font-size: 12px; font-weight: 400; margin-top: 3px; }
+
+.reset-session-btn { background: none; border: 1px solid var(--border); border-radius: 4px; padding: 4px 8px; color: var(--text-dim); font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
+.reset-session-btn:hover { border-color: var(--red); color: var(--red); }
+.empty-session { text-align: center; padding: 20px; color: var(--text-dim); font-size: 12px; }
+.no-results { text-align: center; padding: 28px; color: var(--text-dim); font-size: 13px; }
+.info-badge { font-size: 11px; background: var(--blue-dim); border: 1px solid rgba(58,159,213,0.3); color: var(--blue); border-radius: 4px; padding: 3px 8px; }
+.count-label { font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; }
+.api-status { font-size: 11px; color: var(--text-dim); display: flex; align-items: center; gap: 6px; }
+.api-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-dim); }
+.api-dot.ok { background: var(--green); }
+.api-dot.loading { background: var(--gold); animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+input[type=number] { -moz-appearance: textfield; }
+
+@media (max-width: 900px) {
+  .session-layout { grid-template-columns: 1fr; }
+  .conv-body { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div>
+      <div class="header-title">⚒ Forgemagie Optimizer</div>
+      <div class="header-sub">Comparateur de runes · Session FM · TCO &amp; Rentabilité</div>
+    </div>
+    <a href="https://www.youtube.com/@Tenmalexis" target="_blank" class="yt-badge">
+      <svg class="yt-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2s-.2-1.7-1-2.4c-.9-1-1.9-1-2.4-1.1C16.8 2.5 12 2.5 12 2.5s-4.8 0-8.1.2c-.5.1-1.5.1-2.4 1.1-.7.7-1 2.4-1 2.4S.3 8.1.3 10v1.8c0 1.9.2 3.8.2 3.8s.2 1.7 1 2.4c.9 1 2.1.9 2.7 1 1.9.2 8.2.2 8.2.2s4.8 0 8.1-.3c.5-.1 1.5-.1 2.4-1.1.7-.7 1-2.4 1-2.4s.2-1.9.2-3.8V10c-.1-1.9-.3-3.8-.3-3.8zM9.7 14.7V8.8l6.5 3-6.5 2.9z"></path></svg>
+      @Tenmalexis
+    </a>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="api-status"><div class="api-dot ok" id="apiDot"></div><span id="apiStatus">Icônes chargées</span></div>
+    <div id="saveIndicator" class="save-indicator">● Prix sauvegardés</div>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab(&#39;prix&#39;)">① Prix des runes</div>
+  <div class="tab" onclick="switchTab(&#39;conv&#39;)">② Comparateur conversion</div>
+  <div class="tab" onclick="switchTab(&#39;session&#39;)">③ Session FM &amp; TCO</div>
+</div>
+
+<div id="page-prix" class="page active">
+  <div class="search-bar">
+    <input type="text" class="search-input" id="searchPrix" placeholder="Rechercher une rune… (Vi, Fo, Ine…)" oninput="renderPrixPage()">
+    <div class="category-filter" id="catFilter"><div class="cat-btn active" onclick="setCat(&#39;Tous&#39;)">Tous</div><div class="cat-btn " onclick="setCat(&#39;Caractéristiques&#39;)">Caractéristiques</div><div class="cat-btn " onclick="setCat(&#39;Dommages&#39;)">Dommages</div><div class="cat-btn " onclick="setCat(&#39;Résistances&#39;)">Résistances</div><div class="cat-btn " onclick="setCat(&#39;Divers&#39;)">Divers</div><div class="cat-btn " onclick="setCat(&#39;Exo&#39;)">Exo</div></div>
+    <span class="ratio-info">Ratio fusion : × 3 base → 1 Pa &nbsp;·&nbsp; × 3 Pa → 1 Ra</span>
+    <button class="btn-clear-all" onclick="clearAllPrices()">Effacer tout</button>
+  </div>
+  <div id="runeGroups" class="rune-groups"><div class="rune-group">
+      <div class="group-header"><div class="group-dot"></div>Caractéristiques <span class="count-label">(8 stats)</span></div>
+      <div class="table-scroll"><table class="rune-table">
+        <thead><tr>
+          <th>Rune</th>
+          <th><span class="tier-badge tier-base">BASE</span></th>
+          <th><span class="tier-badge tier-pa">PA</span></th>
+          <th><span class="tier-badge tier-ra">RA</span></th>
+        </tr></thead>
+        <tbody><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Vi">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.8" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="800" fill="#f4b400" letter-spacing="0.3">VI</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Vitalité</div>
+            <div class="rune-abrev">Vi</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Vitalité&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Vitalité&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Vitalité&#39;,&#39;ra&#39;,this.value)" min="0">
+        </td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Fo">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.8" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="800" fill="#f4b400" letter-spacing="0.3">FO</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Force</div>
+            <div class="rune-abrev">Fo</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Force&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Force&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Force&#39;,&#39;ra&#39;,this.value)" min="0">
+        </td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Ine">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#f4b400" letter-spacing="0.3">INE</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Intelligence</div>
+            <div class="rune-abrev">Ine</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Intelligence&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Intelligence&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Intelligence&#39;,&#39;ra&#39;,this.value)" min="0">
+        </td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Age">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#f4b400" letter-spacing="0.3">AGE</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Agilité</div>
+            <div class="rune-abrev">Age</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Agilité&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Agilité&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Agilité&#39;,&#39;ra&#39;,this.value)" min="0">
+        </td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Cha">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#f4b400" letter-spacing="0.3">CHA</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Chance</div>
+            <div class="rune-abrev">Cha</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Chance&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Chance&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Chance&#39;,&#39;ra&#39;,this.value)" min="0">
+        </td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Sa">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.8" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="800" fill="#f4b400" letter-spacing="0.3">SA</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Sagesse</div>
+            <div class="rune-abrev">Sa</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Sagesse&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Sagesse&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Sagesse&#39;,&#39;ra&#39;,this.value)" min="0">
+        </td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Pui">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#f4b400" letter-spacing="0.3">PUI</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Puissance</div>
+            <div class="rune-abrev">Pui</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Puissance&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Puissance&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Puissance&#39;,&#39;ra&#39;,this.value)" min="0">
+        </td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Ini">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#f4b400" letter-spacing="0.3">INI</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Initiative</div>
+            <div class="rune-abrev">Ini</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Initiative&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Initiative&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Initiative&#39;,&#39;ra&#39;,this.value)" min="0">
+        </td></tr></tbody></table></div></div><div class="rune-group">
+      <div class="group-header"><div class="group-dot"></div>Dommages <span class="count-label">(9 stats)</span></div>
+      <div class="table-scroll"><table class="rune-table">
+        <thead><tr>
+          <th>Rune</th>
+          <th><span class="tier-badge tier-base">BASE</span></th>
+          <th><span class="tier-badge tier-pa">PA</span></th>
+          <th><span class="tier-badge tier-ra">RA</span></th>
+        </tr></thead>
+        <tbody><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Do">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.8" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DO</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Dommages</div>
+            <div class="rune-abrev">Do</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Dommages&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoNe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DON</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Do Neutre</div>
+            <div class="rune-abrev">DoNe</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Neutre&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Neutre&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoTe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOT</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Do Terre</div>
+            <div class="rune-abrev">DoTe</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Terre&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Terre&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoFe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOF</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Do Feu</div>
+            <div class="rune-abrev">DoFe</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Feu&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Feu&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoEa">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOE</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Do Eau</div>
+            <div class="rune-abrev">DoEa</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Eau&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Eau&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoAi">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOA</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Do Air</div>
+            <div class="rune-abrev">DoAi</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Air&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Air&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoPi">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOP</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Do Pièges</div>
+            <div class="rune-abrev">DoPi</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Pièges&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Pièges&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoPou">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOP</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Do Poussée</div>
+            <div class="rune-abrev">DoPou</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Poussée&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Poussée&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoCri">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOC</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Do Critiques</div>
+            <div class="rune-abrev">DoCri</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Critiques&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Do Critiques&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr></tbody></table></div></div><div class="rune-group">
+      <div class="group-header"><div class="group-dot"></div>Résistances <span class="count-label">(13 stats)</span></div>
+      <div class="table-scroll"><table class="rune-table">
+        <thead><tr>
+          <th>Rune</th>
+          <th><span class="tier-badge tier-base">BASE</span></th>
+          <th><span class="tier-badge tier-pa">PA</span></th>
+          <th><span class="tier-badge tier-ra">RA</span></th>
+        </tr></thead>
+        <tbody><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="ReNe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REN</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré Neutre</div>
+            <div class="rune-abrev">ReNe</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Neutre&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Neutre&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="ReTe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">RET</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré Terre</div>
+            <div class="rune-abrev">ReTe</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Terre&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Terre&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="ReFe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REF</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré Feu</div>
+            <div class="rune-abrev">ReFe</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Feu&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Feu&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="ReEa">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REE</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré Eau</div>
+            <div class="rune-abrev">ReEa</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Eau&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Eau&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="ReAi">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REA</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré Air</div>
+            <div class="rune-abrev">ReAi</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Air&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Air&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RePou">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REP</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré Poussée</div>
+            <div class="rune-abrev">RePou</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Poussée&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Poussée&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RePi">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REP</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré Pièges</div>
+            <div class="rune-abrev">RePi</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Pièges&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Pièges&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="ReCri">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REC</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré Crit.</div>
+            <div class="rune-abrev">ReCri</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Crit.&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré Crit.&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RpNe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">RPN</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré % Neutre</div>
+            <div class="rune-abrev">RpNe</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré % Neutre&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RpTe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">RPT</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré % Terre</div>
+            <div class="rune-abrev">RpTe</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré % Terre&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RpFe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">RPF</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré % Feu</div>
+            <div class="rune-abrev">RpFe</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré % Feu&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RpEa">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">RPE</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré % Eau</div>
+            <div class="rune-abrev">RpEa</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré % Eau&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RpAi">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">RPA</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Ré % Air</div>
+            <div class="rune-abrev">RpAi</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Ré % Air&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td><td class="price-cell"><span class="no-tier">—</span></td></tr></tbody></table></div></div><div class="rune-group">
+      <div class="group-header"><div class="group-dot"></div>Divers <span class="count-label">(11 stats)</span></div>
+      <div class="table-scroll"><table class="rune-table">
+        <thead><tr>
+          <th>Rune</th>
+          <th><span class="tier-badge tier-base">BASE</span></th>
+          <th><span class="tier-badge tier-pa">PA</span></th>
+          <th><span class="tier-badge tier-ra">RA</span></th>
+        </tr></thead>
+        <tbody><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Pod">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">POD</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Pods</div>
+            <div class="rune-abrev">Pod</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Pods&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Pods&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Pods&#39;,&#39;ra&#39;,this.value)" min="0">
+        </td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Prospe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">PRO</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Prospection</div>
+            <div class="rune-abrev">Prospe</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Prospection&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Prospection&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Invoc">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">INV</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Invocations</div>
+            <div class="rune-abrev">Invoc</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Invocations&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Soi">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">SOI</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Soins</div>
+            <div class="rune-abrev">Soi</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Soins&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="EsqPA">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">ESQ</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Esquive PA</div>
+            <div class="rune-abrev">EsqPA</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Esquive PA&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Esquive PA&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="EsqPM">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">ESQ</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Esquive PM</div>
+            <div class="rune-abrev">EsqPM</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Esquive PM&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Esquive PM&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RetPA">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">RET</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Retrait PA</div>
+            <div class="rune-abrev">RetPA</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Retrait PA&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Retrait PA&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RetPM">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">RET</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Retrait PM</div>
+            <div class="rune-abrev">RetPM</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Retrait PM&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Retrait PM&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Crit">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">CRI</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">% Critique</div>
+            <div class="rune-abrev">Crit</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;% Critique&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Tac">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">TAC</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Tacle</div>
+            <div class="rune-abrev">Tac</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Tacle&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Tacle&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Fui">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">FUI</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Fuite</div>
+            <div class="rune-abrev">Fui</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Fuite&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Fuite&#39;,&#39;pa&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td></tr></tbody></table></div></div><div class="rune-group">
+      <div class="group-header"><div class="group-dot"></div>Exo <span class="count-label">(3 stats)</span></div>
+      <div class="table-scroll"><table class="rune-table">
+        <thead><tr>
+          <th>Rune</th>
+          <th><span class="tier-badge tier-base">BASE</span></th>
+          <th><span class="tier-badge tier-pa">PA</span></th>
+          <th><span class="tier-badge tier-ra">RA</span></th>
+        </tr></thead>
+        <tbody><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="GaPa">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(155,89,182,0.18)" stroke="rgba(155,89,182,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#9b59b6" letter-spacing="0.3">GAP</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Gain PA</div>
+            <div class="rune-abrev">GaPa</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Gain PA&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="GaPm">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(155,89,182,0.18)" stroke="rgba(155,89,182,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#9b59b6" letter-spacing="0.3">GAP</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Gain PM</div>
+            <div class="rune-abrev">GaPm</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Gain PM&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td><td class="price-cell"><span class="no-tier">—</span></td></tr><tr>
+        <td><div class="rune-info">
+          <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="GaPo">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(155,89,182,0.18)" stroke="rgba(155,89,182,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#9b59b6" letter-spacing="0.3">GAP</text>
+  </svg>
+          <div class="rune-name-block">
+            <div class="rune-name">Gain PO</div>
+            <div class="rune-abrev">GaPo</div>
+          </div>
+        </div></td><td class="price-cell">
+          <input type="number" class="price-input" placeholder="0" value="" onchange="handlePriceChange(&#39;Gain PO&#39;,&#39;base&#39;,this.value)" min="0">
+        </td><td class="price-cell"><span class="no-tier">—</span></td><td class="price-cell"><span class="no-tier">—</span></td></tr></tbody></table></div></div></div>
+</div>
+
+<div id="page-conv" class="page">
+  <div class="conv-search-bar">
+    <input type="text" class="search-input" id="searchConv" placeholder="Filtrer par stat… (Vi, Sagesse, Do…)" oninput="renderConvPage()">
+    <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;">
+      <span class="info-badge">Base → Pa : 3 bases = 1 Pa</span>
+      <span class="info-badge">Pa → Ra : 3 Pa = 1 Ra</span>
+      <span class="info-badge">Base → Ra : 9 bases = 1 Ra</span>
+    </div>
+  </div>
+  <div id="convGroups" class="conv-groups"><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Vi">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.8" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="800" fill="#f4b400" letter-spacing="0.3">VI</text>
+  </svg>
+        <span class="conv-stat-name">Vitalité</span>
+        <span class="conv-stat-abrev">Vi</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Pa → Ra (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-ra">RA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Pa et Ra</div>
+        
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Fo">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.8" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="800" fill="#f4b400" letter-spacing="0.3">FO</text>
+  </svg>
+        <span class="conv-stat-name">Force</span>
+        <span class="conv-stat-abrev">Fo</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Pa → Ra (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-ra">RA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Pa et Ra</div>
+        
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Ine">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#f4b400" letter-spacing="0.3">INE</text>
+  </svg>
+        <span class="conv-stat-name">Intelligence</span>
+        <span class="conv-stat-abrev">Ine</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Pa → Ra (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-ra">RA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Pa et Ra</div>
+        
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Age">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#f4b400" letter-spacing="0.3">AGE</text>
+  </svg>
+        <span class="conv-stat-name">Agilité</span>
+        <span class="conv-stat-abrev">Age</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Pa → Ra (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-ra">RA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Pa et Ra</div>
+        
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Cha">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#f4b400" letter-spacing="0.3">CHA</text>
+  </svg>
+        <span class="conv-stat-name">Chance</span>
+        <span class="conv-stat-abrev">Cha</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Pa → Ra (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-ra">RA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Pa et Ra</div>
+        
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Sa">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.8" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="800" fill="#f4b400" letter-spacing="0.3">SA</text>
+  </svg>
+        <span class="conv-stat-name">Sagesse</span>
+        <span class="conv-stat-abrev">Sa</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Pa → Ra (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-ra">RA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Pa et Ra</div>
+        
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Pui">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#f4b400" letter-spacing="0.3">PUI</text>
+  </svg>
+        <span class="conv-stat-name">Puissance</span>
+        <span class="conv-stat-abrev">Pui</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Pa → Ra (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-ra">RA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Pa et Ra</div>
+        
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Ini">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(244,180,0,0.18)" stroke="rgba(244,180,0,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#f4b400" letter-spacing="0.3">INI</text>
+  </svg>
+        <span class="conv-stat-name">Initiative</span>
+        <span class="conv-stat-abrev">Ini</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Pa → Ra (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-ra">RA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Pa et Ra</div>
+        
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoNe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DON</text>
+  </svg>
+        <span class="conv-stat-name">Do Neutre</span>
+        <span class="conv-stat-abrev">DoNe</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoTe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOT</text>
+  </svg>
+        <span class="conv-stat-name">Do Terre</span>
+        <span class="conv-stat-abrev">DoTe</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoFe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOF</text>
+  </svg>
+        <span class="conv-stat-name">Do Feu</span>
+        <span class="conv-stat-abrev">DoFe</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoEa">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOE</text>
+  </svg>
+        <span class="conv-stat-name">Do Eau</span>
+        <span class="conv-stat-abrev">DoEa</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoAi">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOA</text>
+  </svg>
+        <span class="conv-stat-name">Do Air</span>
+        <span class="conv-stat-abrev">DoAi</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoPi">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOP</text>
+  </svg>
+        <span class="conv-stat-name">Do Pièges</span>
+        <span class="conv-stat-abrev">DoPi</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoPou">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOP</text>
+  </svg>
+        <span class="conv-stat-name">Do Poussée</span>
+        <span class="conv-stat-abrev">DoPou</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="DoCri">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(231,76,60,0.18)" stroke="rgba(231,76,60,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#e74c3c" letter-spacing="0.3">DOC</text>
+  </svg>
+        <span class="conv-stat-name">Do Critiques</span>
+        <span class="conv-stat-abrev">DoCri</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="ReNe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REN</text>
+  </svg>
+        <span class="conv-stat-name">Ré Neutre</span>
+        <span class="conv-stat-abrev">ReNe</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="ReTe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">RET</text>
+  </svg>
+        <span class="conv-stat-name">Ré Terre</span>
+        <span class="conv-stat-abrev">ReTe</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="ReFe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REF</text>
+  </svg>
+        <span class="conv-stat-name">Ré Feu</span>
+        <span class="conv-stat-abrev">ReFe</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="ReEa">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REE</text>
+  </svg>
+        <span class="conv-stat-name">Ré Eau</span>
+        <span class="conv-stat-abrev">ReEa</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="ReAi">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REA</text>
+  </svg>
+        <span class="conv-stat-name">Ré Air</span>
+        <span class="conv-stat-abrev">ReAi</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RePou">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REP</text>
+  </svg>
+        <span class="conv-stat-name">Ré Poussée</span>
+        <span class="conv-stat-abrev">RePou</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RePi">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REP</text>
+  </svg>
+        <span class="conv-stat-name">Ré Pièges</span>
+        <span class="conv-stat-abrev">RePi</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="ReCri">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(58,159,213,0.18)" stroke="rgba(58,159,213,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#3a9fd5" letter-spacing="0.3">REC</text>
+  </svg>
+        <span class="conv-stat-name">Ré Crit.</span>
+        <span class="conv-stat-abrev">ReCri</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Pod">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">POD</text>
+  </svg>
+        <span class="conv-stat-name">Pods</span>
+        <span class="conv-stat-abrev">Pod</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Pa → Ra (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-ra">RA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Pa et Ra</div>
+        
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Prospe">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">PRO</text>
+  </svg>
+        <span class="conv-stat-name">Prospection</span>
+        <span class="conv-stat-abrev">Prospe</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="EsqPA">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">ESQ</text>
+  </svg>
+        <span class="conv-stat-name">Esquive PA</span>
+        <span class="conv-stat-abrev">EsqPA</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="EsqPM">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">ESQ</text>
+  </svg>
+        <span class="conv-stat-name">Esquive PM</span>
+        <span class="conv-stat-abrev">EsqPM</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RetPA">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">RET</text>
+  </svg>
+        <span class="conv-stat-name">Retrait PA</span>
+        <span class="conv-stat-abrev">RetPA</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="RetPM">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">RET</text>
+  </svg>
+        <span class="conv-stat-name">Retrait PM</span>
+        <span class="conv-stat-abrev">RetPM</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Tac">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">TAC</text>
+  </svg>
+        <span class="conv-stat-name">Tacle</span>
+        <span class="conv-stat-abrev">Tac</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div><div class="conv-card">
+      <div class="conv-card-header">
+        <svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="Fui">
+    <polygon points="17,2 32,17 17,32 2,17" fill="rgba(46,204,113,0.18)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"></polygon>
+    <text x="17" y="20.04" text-anchor="middle" dominant-baseline="middle" font-family="Rajdhani,sans-serif" font-size="8" font-weight="800" fill="#2ecc71" letter-spacing="0.3">FUI</text>
+  </svg>
+        <span class="conv-stat-name">Fuite</span>
+        <span class="conv-stat-abrev">Fui</span>
+      </div>
+      <div class="conv-body"><div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value no-price">Prix manquant</span>
+        </div>
+        <div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>
+      </div></div></div></div>
+</div>
+
+<div id="page-session" class="page">
+  <div class="session-layout">
+    <div>
+      <div class="session-panel">
+        <div class="panel-title">
+          Session FM
+          <button class="reset-session-btn" onclick="resetSession()">Réinitialiser</button>
+        </div>
+        <div class="panel-body">
+          <input type="text" class="session-item-name" id="sessionItemName" placeholder="Nom de l&#39;item forgé (ex: Cape au Logis)" oninput="updateTCO()">
+          <div class="add-rune-row">
+            <select class="add-rune-select" id="addRuneSelect"><option value="{&quot;stat&quot;:&quot;Vitalité&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Vi&quot;,&quot;abrev&quot;:&quot;Vi&quot;}">Vi — Vitalité</option><option value="{&quot;stat&quot;:&quot;Vitalité&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa Vi&quot;,&quot;abrev&quot;:&quot;Vi&quot;}">Pa Vi — Vitalité</option><option value="{&quot;stat&quot;:&quot;Vitalité&quot;,&quot;tier&quot;:&quot;ra&quot;,&quot;label&quot;:&quot;Ra Vi&quot;,&quot;abrev&quot;:&quot;Vi&quot;}">Ra Vi — Vitalité</option><option value="{&quot;stat&quot;:&quot;Force&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Fo&quot;,&quot;abrev&quot;:&quot;Fo&quot;}">Fo — Force</option><option value="{&quot;stat&quot;:&quot;Force&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa Fo&quot;,&quot;abrev&quot;:&quot;Fo&quot;}">Pa Fo — Force</option><option value="{&quot;stat&quot;:&quot;Force&quot;,&quot;tier&quot;:&quot;ra&quot;,&quot;label&quot;:&quot;Ra Fo&quot;,&quot;abrev&quot;:&quot;Fo&quot;}">Ra Fo — Force</option><option value="{&quot;stat&quot;:&quot;Intelligence&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Ine&quot;,&quot;abrev&quot;:&quot;Ine&quot;}">Ine — Intelligence</option><option value="{&quot;stat&quot;:&quot;Intelligence&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa Ine&quot;,&quot;abrev&quot;:&quot;Ine&quot;}">Pa Ine — Intelligence</option><option value="{&quot;stat&quot;:&quot;Intelligence&quot;,&quot;tier&quot;:&quot;ra&quot;,&quot;label&quot;:&quot;Ra Ine&quot;,&quot;abrev&quot;:&quot;Ine&quot;}">Ra Ine — Intelligence</option><option value="{&quot;stat&quot;:&quot;Agilité&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Age&quot;,&quot;abrev&quot;:&quot;Age&quot;}">Age — Agilité</option><option value="{&quot;stat&quot;:&quot;Agilité&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa Age&quot;,&quot;abrev&quot;:&quot;Age&quot;}">Pa Age — Agilité</option><option value="{&quot;stat&quot;:&quot;Agilité&quot;,&quot;tier&quot;:&quot;ra&quot;,&quot;label&quot;:&quot;Ra Age&quot;,&quot;abrev&quot;:&quot;Age&quot;}">Ra Age — Agilité</option><option value="{&quot;stat&quot;:&quot;Chance&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Cha&quot;,&quot;abrev&quot;:&quot;Cha&quot;}">Cha — Chance</option><option value="{&quot;stat&quot;:&quot;Chance&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa Cha&quot;,&quot;abrev&quot;:&quot;Cha&quot;}">Pa Cha — Chance</option><option value="{&quot;stat&quot;:&quot;Chance&quot;,&quot;tier&quot;:&quot;ra&quot;,&quot;label&quot;:&quot;Ra Cha&quot;,&quot;abrev&quot;:&quot;Cha&quot;}">Ra Cha — Chance</option><option value="{&quot;stat&quot;:&quot;Sagesse&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Sa&quot;,&quot;abrev&quot;:&quot;Sa&quot;}">Sa — Sagesse</option><option value="{&quot;stat&quot;:&quot;Sagesse&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa Sa&quot;,&quot;abrev&quot;:&quot;Sa&quot;}">Pa Sa — Sagesse</option><option value="{&quot;stat&quot;:&quot;Sagesse&quot;,&quot;tier&quot;:&quot;ra&quot;,&quot;label&quot;:&quot;Ra Sa&quot;,&quot;abrev&quot;:&quot;Sa&quot;}">Ra Sa — Sagesse</option><option value="{&quot;stat&quot;:&quot;Puissance&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Pui&quot;,&quot;abrev&quot;:&quot;Pui&quot;}">Pui — Puissance</option><option value="{&quot;stat&quot;:&quot;Puissance&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa Pui&quot;,&quot;abrev&quot;:&quot;Pui&quot;}">Pa Pui — Puissance</option><option value="{&quot;stat&quot;:&quot;Puissance&quot;,&quot;tier&quot;:&quot;ra&quot;,&quot;label&quot;:&quot;Ra Pui&quot;,&quot;abrev&quot;:&quot;Pui&quot;}">Ra Pui — Puissance</option><option value="{&quot;stat&quot;:&quot;Initiative&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Ini&quot;,&quot;abrev&quot;:&quot;Ini&quot;}">Ini — Initiative</option><option value="{&quot;stat&quot;:&quot;Initiative&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa Ini&quot;,&quot;abrev&quot;:&quot;Ini&quot;}">Pa Ini — Initiative</option><option value="{&quot;stat&quot;:&quot;Initiative&quot;,&quot;tier&quot;:&quot;ra&quot;,&quot;label&quot;:&quot;Ra Ini&quot;,&quot;abrev&quot;:&quot;Ini&quot;}">Ra Ini — Initiative</option><option value="{&quot;stat&quot;:&quot;Dommages&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Do&quot;,&quot;abrev&quot;:&quot;Do&quot;}">Do — Dommages</option><option value="{&quot;stat&quot;:&quot;Do Neutre&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;DoNe&quot;,&quot;abrev&quot;:&quot;DoNe&quot;}">DoNe — Do Neutre</option><option value="{&quot;stat&quot;:&quot;Do Neutre&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa DoNe&quot;,&quot;abrev&quot;:&quot;DoNe&quot;}">Pa DoNe — Do Neutre</option><option value="{&quot;stat&quot;:&quot;Do Terre&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;DoTe&quot;,&quot;abrev&quot;:&quot;DoTe&quot;}">DoTe — Do Terre</option><option value="{&quot;stat&quot;:&quot;Do Terre&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa DoTe&quot;,&quot;abrev&quot;:&quot;DoTe&quot;}">Pa DoTe — Do Terre</option><option value="{&quot;stat&quot;:&quot;Do Feu&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;DoFe&quot;,&quot;abrev&quot;:&quot;DoFe&quot;}">DoFe — Do Feu</option><option value="{&quot;stat&quot;:&quot;Do Feu&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa DoFe&quot;,&quot;abrev&quot;:&quot;DoFe&quot;}">Pa DoFe — Do Feu</option><option value="{&quot;stat&quot;:&quot;Do Eau&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;DoEa&quot;,&quot;abrev&quot;:&quot;DoEa&quot;}">DoEa — Do Eau</option><option value="{&quot;stat&quot;:&quot;Do Eau&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa DoEa&quot;,&quot;abrev&quot;:&quot;DoEa&quot;}">Pa DoEa — Do Eau</option><option value="{&quot;stat&quot;:&quot;Do Air&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;DoAi&quot;,&quot;abrev&quot;:&quot;DoAi&quot;}">DoAi — Do Air</option><option value="{&quot;stat&quot;:&quot;Do Air&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa DoAi&quot;,&quot;abrev&quot;:&quot;DoAi&quot;}">Pa DoAi — Do Air</option><option value="{&quot;stat&quot;:&quot;Do Pièges&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;DoPi&quot;,&quot;abrev&quot;:&quot;DoPi&quot;}">DoPi — Do Pièges</option><option value="{&quot;stat&quot;:&quot;Do Pièges&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa DoPi&quot;,&quot;abrev&quot;:&quot;DoPi&quot;}">Pa DoPi — Do Pièges</option><option value="{&quot;stat&quot;:&quot;Do Poussée&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;DoPou&quot;,&quot;abrev&quot;:&quot;DoPou&quot;}">DoPou — Do Poussée</option><option value="{&quot;stat&quot;:&quot;Do Poussée&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa DoPou&quot;,&quot;abrev&quot;:&quot;DoPou&quot;}">Pa DoPou — Do Poussée</option><option value="{&quot;stat&quot;:&quot;Do Critiques&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;DoCri&quot;,&quot;abrev&quot;:&quot;DoCri&quot;}">DoCri — Do Critiques</option><option value="{&quot;stat&quot;:&quot;Do Critiques&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa DoCri&quot;,&quot;abrev&quot;:&quot;DoCri&quot;}">Pa DoCri — Do Critiques</option><option value="{&quot;stat&quot;:&quot;Ré Neutre&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;ReNe&quot;,&quot;abrev&quot;:&quot;ReNe&quot;}">ReNe — Ré Neutre</option><option value="{&quot;stat&quot;:&quot;Ré Neutre&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa ReNe&quot;,&quot;abrev&quot;:&quot;ReNe&quot;}">Pa ReNe — Ré Neutre</option><option value="{&quot;stat&quot;:&quot;Ré Terre&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;ReTe&quot;,&quot;abrev&quot;:&quot;ReTe&quot;}">ReTe — Ré Terre</option><option value="{&quot;stat&quot;:&quot;Ré Terre&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa ReTe&quot;,&quot;abrev&quot;:&quot;ReTe&quot;}">Pa ReTe — Ré Terre</option><option value="{&quot;stat&quot;:&quot;Ré Feu&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;ReFe&quot;,&quot;abrev&quot;:&quot;ReFe&quot;}">ReFe — Ré Feu</option><option value="{&quot;stat&quot;:&quot;Ré Feu&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa ReFe&quot;,&quot;abrev&quot;:&quot;ReFe&quot;}">Pa ReFe — Ré Feu</option><option value="{&quot;stat&quot;:&quot;Ré Eau&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;ReEa&quot;,&quot;abrev&quot;:&quot;ReEa&quot;}">ReEa — Ré Eau</option><option value="{&quot;stat&quot;:&quot;Ré Eau&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa ReEa&quot;,&quot;abrev&quot;:&quot;ReEa&quot;}">Pa ReEa — Ré Eau</option><option value="{&quot;stat&quot;:&quot;Ré Air&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;ReAi&quot;,&quot;abrev&quot;:&quot;ReAi&quot;}">ReAi — Ré Air</option><option value="{&quot;stat&quot;:&quot;Ré Air&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa ReAi&quot;,&quot;abrev&quot;:&quot;ReAi&quot;}">Pa ReAi — Ré Air</option><option value="{&quot;stat&quot;:&quot;Ré Poussée&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;RePou&quot;,&quot;abrev&quot;:&quot;RePou&quot;}">RePou — Ré Poussée</option><option value="{&quot;stat&quot;:&quot;Ré Poussée&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa RePou&quot;,&quot;abrev&quot;:&quot;RePou&quot;}">Pa RePou — Ré Poussée</option><option value="{&quot;stat&quot;:&quot;Ré Pièges&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;RePi&quot;,&quot;abrev&quot;:&quot;RePi&quot;}">RePi — Ré Pièges</option><option value="{&quot;stat&quot;:&quot;Ré Pièges&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa RePi&quot;,&quot;abrev&quot;:&quot;RePi&quot;}">Pa RePi — Ré Pièges</option><option value="{&quot;stat&quot;:&quot;Ré Crit.&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;ReCri&quot;,&quot;abrev&quot;:&quot;ReCri&quot;}">ReCri — Ré Crit.</option><option value="{&quot;stat&quot;:&quot;Ré Crit.&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa ReCri&quot;,&quot;abrev&quot;:&quot;ReCri&quot;}">Pa ReCri — Ré Crit.</option><option value="{&quot;stat&quot;:&quot;Ré % Neutre&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;RpNe&quot;,&quot;abrev&quot;:&quot;RpNe&quot;}">RpNe — Ré % Neutre</option><option value="{&quot;stat&quot;:&quot;Ré % Terre&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;RpTe&quot;,&quot;abrev&quot;:&quot;RpTe&quot;}">RpTe — Ré % Terre</option><option value="{&quot;stat&quot;:&quot;Ré % Feu&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;RpFe&quot;,&quot;abrev&quot;:&quot;RpFe&quot;}">RpFe — Ré % Feu</option><option value="{&quot;stat&quot;:&quot;Ré % Eau&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;RpEa&quot;,&quot;abrev&quot;:&quot;RpEa&quot;}">RpEa — Ré % Eau</option><option value="{&quot;stat&quot;:&quot;Ré % Air&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;RpAi&quot;,&quot;abrev&quot;:&quot;RpAi&quot;}">RpAi — Ré % Air</option><option value="{&quot;stat&quot;:&quot;Pods&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Pod&quot;,&quot;abrev&quot;:&quot;Pod&quot;}">Pod — Pods</option><option value="{&quot;stat&quot;:&quot;Pods&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa Pod&quot;,&quot;abrev&quot;:&quot;Pod&quot;}">Pa Pod — Pods</option><option value="{&quot;stat&quot;:&quot;Pods&quot;,&quot;tier&quot;:&quot;ra&quot;,&quot;label&quot;:&quot;Ra Pod&quot;,&quot;abrev&quot;:&quot;Pod&quot;}">Ra Pod — Pods</option><option value="{&quot;stat&quot;:&quot;Prospection&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Prospe&quot;,&quot;abrev&quot;:&quot;Prospe&quot;}">Prospe — Prospection</option><option value="{&quot;stat&quot;:&quot;Prospection&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa Prospe&quot;,&quot;abrev&quot;:&quot;Prospe&quot;}">Pa Prospe — Prospection</option><option value="{&quot;stat&quot;:&quot;Invocations&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Invoc&quot;,&quot;abrev&quot;:&quot;Invoc&quot;}">Invoc — Invocations</option><option value="{&quot;stat&quot;:&quot;Soins&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Soi&quot;,&quot;abrev&quot;:&quot;Soi&quot;}">Soi — Soins</option><option value="{&quot;stat&quot;:&quot;Esquive PA&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;EsqPA&quot;,&quot;abrev&quot;:&quot;EsqPA&quot;}">EsqPA — Esquive PA</option><option value="{&quot;stat&quot;:&quot;Esquive PA&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa EsqPA&quot;,&quot;abrev&quot;:&quot;EsqPA&quot;}">Pa EsqPA — Esquive PA</option><option value="{&quot;stat&quot;:&quot;Esquive PM&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;EsqPM&quot;,&quot;abrev&quot;:&quot;EsqPM&quot;}">EsqPM — Esquive PM</option><option value="{&quot;stat&quot;:&quot;Esquive PM&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa EsqPM&quot;,&quot;abrev&quot;:&quot;EsqPM&quot;}">Pa EsqPM — Esquive PM</option><option value="{&quot;stat&quot;:&quot;Retrait PA&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;RetPA&quot;,&quot;abrev&quot;:&quot;RetPA&quot;}">RetPA — Retrait PA</option><option value="{&quot;stat&quot;:&quot;Retrait PA&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa RetPA&quot;,&quot;abrev&quot;:&quot;RetPA&quot;}">Pa RetPA — Retrait PA</option><option value="{&quot;stat&quot;:&quot;Retrait PM&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;RetPM&quot;,&quot;abrev&quot;:&quot;RetPM&quot;}">RetPM — Retrait PM</option><option value="{&quot;stat&quot;:&quot;Retrait PM&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa RetPM&quot;,&quot;abrev&quot;:&quot;RetPM&quot;}">Pa RetPM — Retrait PM</option><option value="{&quot;stat&quot;:&quot;% Critique&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Crit&quot;,&quot;abrev&quot;:&quot;Crit&quot;}">Crit — % Critique</option><option value="{&quot;stat&quot;:&quot;Tacle&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Tac&quot;,&quot;abrev&quot;:&quot;Tac&quot;}">Tac — Tacle</option><option value="{&quot;stat&quot;:&quot;Tacle&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa Tac&quot;,&quot;abrev&quot;:&quot;Tac&quot;}">Pa Tac — Tacle</option><option value="{&quot;stat&quot;:&quot;Fuite&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;Fui&quot;,&quot;abrev&quot;:&quot;Fui&quot;}">Fui — Fuite</option><option value="{&quot;stat&quot;:&quot;Fuite&quot;,&quot;tier&quot;:&quot;pa&quot;,&quot;label&quot;:&quot;Pa Fui&quot;,&quot;abrev&quot;:&quot;Fui&quot;}">Pa Fui — Fuite</option><option value="{&quot;stat&quot;:&quot;Gain PA&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;GaPa&quot;,&quot;abrev&quot;:&quot;GaPa&quot;}">GaPa — Gain PA</option><option value="{&quot;stat&quot;:&quot;Gain PM&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;GaPm&quot;,&quot;abrev&quot;:&quot;GaPm&quot;}">GaPm — Gain PM</option><option value="{&quot;stat&quot;:&quot;Gain PO&quot;,&quot;tier&quot;:&quot;base&quot;,&quot;label&quot;:&quot;GaPo&quot;,&quot;abrev&quot;:&quot;GaPo&quot;}">GaPo — Gain PO</option></select>
+            <button class="add-btn" onclick="addSessionLine()">+ Ajouter</button>
+          </div>
+          <div id="sessionLines" class="session-lines">
+            <div class="empty-session">Aucune rune ajoutée.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tco-panel">
+      <div class="tco-summary">
+        <div class="panel-title">Coût Réel de la Session</div>
+        <div class="tco-item-name-display" id="tcoItemName">— Aucun item défini —</div>
+        <div class="tco-lines" id="tcoLines">
+          <div class="tco-line"><span class="tco-line-label">Aucune rune ajoutée</span><span class="tco-line-val">—</span></div>
+        </div>
+        <div class="tco-total-bar">
+          <div class="tco-total-label">TCO Total</div>
+          <div class="tco-total-val" id="tcoTotal">0 kamas</div>
+        </div>
+      </div>
+      <div class="rentab-section">
+        <div class="panel-title">Rentabilité FM</div>
+        <div class="rentab-inputs">
+          <div class="r-input-group">
+            <label>Prix item brut (kamas)</label>
+            <input type="number" class="r-input" id="itemBrut" placeholder="ex: 5 000 000" oninput="updateRentab()">
+          </div>
+          <div class="r-input-group">
+            <label>Prix item FM obtenu (kamas)</label>
+            <input type="number" class="r-input" id="itemFm" placeholder="ex: 9 000 000" oninput="updateRentab()">
+          </div>
+        </div>
+        <div class="rentab-result">
+          <div id="rentabVerdict" class="rentab-verdict verdict-neutral">
+            <div class="main-line">— Renseignez les prix pour calculer la rentabilité</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// DONNÉES RUNES — ratio de fusion : ×3 (3 base = 1 Pa, 3 Pa = 1 Ra)
+// iconId sera peuplé dynamiquement via l'API dofusdb
+// ═══════════════════════════════════════════════════════════
+// ═══ DONNÉES RUNES — liste définitive selon encyclopédie dofus.com ═══
+const RUNE_DATA = [
+  // ─── CARACTÉRISTIQUES ───
+  { group:"Caractéristiques", stat:"Vitalité",     abrev:"Vi",    hasPa:true,  hasRa:true  },
+  { group:"Caractéristiques", stat:"Force",        abrev:"Fo",    hasPa:true,  hasRa:true  },
+  { group:"Caractéristiques", stat:"Intelligence", abrev:"Ine",   hasPa:true,  hasRa:true  },
+  { group:"Caractéristiques", stat:"Agilité",      abrev:"Age",   hasPa:true,  hasRa:true  },
+  { group:"Caractéristiques", stat:"Chance",       abrev:"Cha",   hasPa:true,  hasRa:true  },
+  { group:"Caractéristiques", stat:"Sagesse",      abrev:"Sa",    hasPa:true,  hasRa:true  },
+  { group:"Caractéristiques", stat:"Puissance",    abrev:"Pui",   hasPa:true,  hasRa:true  },
+  { group:"Caractéristiques", stat:"Initiative",   abrev:"Ini",   hasPa:true,  hasRa:true  },
+  // ─── DOMMAGES ───
+  { group:"Dommages", stat:"Dommages",     abrev:"Do",    hasPa:false, hasRa:false },
+  { group:"Dommages", stat:"Do Neutre",    abrev:"DoNe",  hasPa:true,  hasRa:false },
+  { group:"Dommages", stat:"Do Terre",     abrev:"DoTe",  hasPa:true,  hasRa:false },
+  { group:"Dommages", stat:"Do Feu",       abrev:"DoFe",  hasPa:true,  hasRa:false },
+  { group:"Dommages", stat:"Do Eau",       abrev:"DoEa",  hasPa:true,  hasRa:false },
+  { group:"Dommages", stat:"Do Air",       abrev:"DoAi",  hasPa:true,  hasRa:false },
+  { group:"Dommages", stat:"Do Pièges",    abrev:"DoPi",  hasPa:true,  hasRa:false },
+  { group:"Dommages", stat:"Do Poussée",   abrev:"DoPou", hasPa:true,  hasRa:false },
+  { group:"Dommages", stat:"Do Critiques", abrev:"DoCri", hasPa:true,  hasRa:false },
+  // ─── RÉSISTANCES FIXES ───
+  { group:"Résistances", stat:"Ré Neutre",  abrev:"ReNe",  hasPa:true,  hasRa:false },
+  { group:"Résistances", stat:"Ré Terre",   abrev:"ReTe",  hasPa:true,  hasRa:false },
+  { group:"Résistances", stat:"Ré Feu",     abrev:"ReFe",  hasPa:true,  hasRa:false },
+  { group:"Résistances", stat:"Ré Eau",     abrev:"ReEa",  hasPa:true,  hasRa:false },
+  { group:"Résistances", stat:"Ré Air",     abrev:"ReAi",  hasPa:true,  hasRa:false },
+  { group:"Résistances", stat:"Ré Poussée", abrev:"RePou", hasPa:true,  hasRa:false },
+  { group:"Résistances", stat:"Ré Pièges",  abrev:"RePi",  hasPa:true,  hasRa:false },
+  { group:"Résistances", stat:"Ré Crit.",   abrev:"ReCri", hasPa:true,  hasRa:false },
+  // ─── RÉSISTANCES % ───
+  { group:"Résistances", stat:"Ré % Neutre", abrev:"RpNe", hasPa:false, hasRa:false },
+  { group:"Résistances", stat:"Ré % Terre",  abrev:"RpTe", hasPa:false, hasRa:false },
+  { group:"Résistances", stat:"Ré % Feu",    abrev:"RpFe", hasPa:false, hasRa:false },
+  { group:"Résistances", stat:"Ré % Eau",    abrev:"RpEa", hasPa:false, hasRa:false },
+  { group:"Résistances", stat:"Ré % Air",    abrev:"RpAi", hasPa:false, hasRa:false },
+  // ─── DIVERS ───
+  { group:"Divers", stat:"Pods",        abrev:"Pod",   hasPa:true,  hasRa:true  },
+  { group:"Divers", stat:"Prospection", abrev:"Prospe",hasPa:true,  hasRa:false },
+  { group:"Divers", stat:"Invocations", abrev:"Invoc", hasPa:false, hasRa:false },
+  { group:"Divers", stat:"Soins",       abrev:"Soi",   hasPa:false, hasRa:false },
+  { group:"Divers", stat:"Esquive PA",  abrev:"EsqPA", hasPa:true,  hasRa:false },
+  { group:"Divers", stat:"Esquive PM",  abrev:"EsqPM", hasPa:true,  hasRa:false },
+  { group:"Divers", stat:"Retrait PA",  abrev:"RetPA", hasPa:true,  hasRa:false },
+  { group:"Divers", stat:"Retrait PM",  abrev:"RetPM", hasPa:true,  hasRa:false },
+  { group:"Divers", stat:"% Critique",  abrev:"Crit",  hasPa:false, hasRa:false },
+  { group:"Divers", stat:"Tacle",       abrev:"Tac",   hasPa:true,  hasRa:false },
+  { group:"Divers", stat:"Fuite",       abrev:"Fui",   hasPa:true,  hasRa:false },
+  // ─── EXOTIQUES (pas de conversion) ───
+  { group:"Exo", stat:"Gain PA", abrev:"GaPa", hasPa:false, hasRa:false },
+  { group:"Exo", stat:"Gain PM", abrev:"GaPm", hasPa:false, hasRa:false },
+  { group:"Exo", stat:"Gain PO", abrev:"GaPo", hasPa:false, hasRa:false },
+];
+
+// ═══ NOMS EXACTS dofus.com pour la recherche dofusdude ═══
+// Vérifié depuis encyclopédie dofus.com (IDs 1523→11xxx)
+const RUNE_NAMES = {
+  'Vi':    { base:'Rune Vi',       pa:'Rune Pa Vi',       ra:'Rune Ra Vi'      },
+  'Fo':    { base:'Rune Fo',       pa:'Rune Pa Fo',       ra:'Rune Ra Fo'      },
+  'Ine':   { base:'Rune Ine',      pa:'Rune Pa Ine',      ra:'Rune Ra Ine'     },
+  'Age':   { base:'Rune Age',      pa:'Rune Pa Age',      ra:'Rune Ra Age'     },
+  'Cha':   { base:'Rune Cha',      pa:'Rune Pa Cha',      ra:'Rune Ra Cha'     },
+  'Sa':    { base:'Rune Sa',       pa:'Rune Pa Sa',       ra:'Rune Ra Sa'      },
+  'Pui':   { base:'Rune Pui',      pa:'Rune Pa Pui',      ra:'Rune Ra Pui'     },
+  'Ini':   { base:'Rune Ini',      pa:'Rune Pa Ini',      ra:'Rune Ra Ini'     },
+  'Do':    { base:'Rune Do'                                                      },
+  'DoNe':  { base:'Rune Do Ne',    pa:'Rune Pa Do Ne'                           },
+  'DoTe':  { base:'Rune Do Te',    pa:'Rune Pa Do Te'                           },
+  'DoFe':  { base:'Rune Do Fe',    pa:'Rune Pa Do Fe'                           },
+  'DoEa':  { base:'Rune Do Ea',    pa:'Rune Pa Do Ea'                           },
+  'DoAi':  { base:'Rune Do Ai',    pa:'Rune Pa Do Ai'                           },
+  'DoPi':  { base:'Rune Do Pi',    pa:'Rune Pa Do Pi'                           },
+  'DoPou': { base:'Rune Do Pou',   pa:'Rune Pa Do Pou'                          },
+  'DoCri': { base:'Rune Do Cri',   pa:'Rune Pa Do Cri'                          },
+  'ReNe':  { base:'Rune Ré Ne',    pa:'Rune Pa Ré Ne'                           },
+  'ReTe':  { base:'Rune Ré Te',    pa:'Rune Pa Ré Te'                           },
+  'ReFe':  { base:'Rune Ré Fe',    pa:'Rune Pa Ré Fe'                           },
+  'ReEa':  { base:'Rune Ré Ea',    pa:'Rune Pa Ré Ea'                           },
+  'ReAi':  { base:'Rune Ré Ai',    pa:'Rune Pa Ré Ai'                           },
+  'RePou': { base:'Rune Ré Pou',   pa:'Rune Pa Ré Pou'                          },
+  'RePi':  { base:'Rune Ré Pi',    pa:'Rune Pa Ré Pi'                           },
+  'ReCri': { base:'Rune Ré Cri',   pa:'Rune Pa Ré Cri'                          },
+  'RpNe':  { base:'Rune Ré Per Ne'                                               },
+  'RpTe':  { base:'Rune Ré Per Te'                                               },
+  'RpFe':  { base:'Rune Ré Per Fe'                                               },
+  'RpEa':  { base:'Rune Ré Per Ea'                                               },
+  'RpAi':  { base:'Rune Ré Per Ai'                                               },
+  'Pod':   { base:'Rune Pod',      pa:'Rune Pa Pod',      ra:'Rune Ra Pod'     },
+  'Prospe':{ base:'Rune Prospe',   pa:'Rune Pa Prospe'                          },
+  'Invoc': { base:'Rune Invoc'                                                   },
+  'Soi':   { base:'Rune Soi'                                                     },
+  'EsqPA': { base:'Rune Ré Pa',    pa:'Rune Pa Ré Pa'                           },
+  'EsqPM': { base:'Rune Ré Pm',    pa:'Rune Pa Ré Pm'                           },
+  'RetPA': { base:'Rune Ret Pa',   pa:'Rune Pa Ret Pa'                          },
+  'RetPM': { base:'Rune Ret Pm',   pa:'Rune Pa Ret Pm'                          },
+  'Crit':  { base:'Rune Crit'                                                    },
+  'Tac':   { base:'Rune Tac',      pa:'Rune Pa Tac'                             },
+  'Fui':   { base:'Rune Fui',      pa:'Rune Pa Fui'                             },
+  'GaPa':  { base:'Rune Ga Pa'                                                   },
+  'GaPm':  { base:'Rune Ga Pm'                                                   },
+  'GaPo':  { base:'Rune Ga Po'                                                   },
+};
+
+const BADGE_COLORS = {
+  'Caractéristiques': { fill:'rgba(244,180,0,0.18)',  stroke:'rgba(244,180,0,0.5)',  text:'#f4b400' },
+  'Dommages':         { fill:'rgba(231,76,60,0.18)',  stroke:'rgba(231,76,60,0.5)',  text:'#e74c3c' },
+  'Résistances':      { fill:'rgba(58,159,213,0.18)', stroke:'rgba(58,159,213,0.5)', text:'#3a9fd5' },
+  'Divers':           { fill:'rgba(46,204,113,0.18)', stroke:'rgba(46,204,113,0.5)', text:'#2ecc71' },
+  'Exo':              { fill:'rgba(155,89,182,0.18)', stroke:'rgba(155,89,182,0.5)', text:'#9b59b6' },
+};
+
+// Cache images chargées dynamiquement
+const IMG_CACHE = {};
+
+// ═══ FETCH IMAGES — même API que l'outil Calculateur Craft (dofusdude) ═══
+// Fonctionne depuis un serveur (GitHub Pages). En file:// : fallback SVG.
+async function loadIcons() {
+  const dot = document.getElementById('apiDot');
+  const status = document.getElementById('apiStatus');
+  const BASE = 'https://api.dofusdude.de/dofus3/v1/fr/items/resources/search';
+  let loaded = 0;
+
+  const toFetch = [];
+  Object.entries(RUNE_NAMES).forEach(([abrev, tiers]) => {
+    Object.entries(tiers).forEach(([tier, name]) => toFetch.push({ abrev, tier, name }));
+  });
+
+  async function fetchOne({ abrev, tier, name }) {
+    try {
+      const res = await fetch(`${BASE}?query=${encodeURIComponent(name)}&limit=8`);
+      if (!res.ok) return;
+      const data = await res.json();
+      const nameLow = name.toLowerCase();
+      const item = Array.isArray(data)
+        ? data.find(i => (i.name||'').toLowerCase() === nameLow)
+        : null;
+      const imgUrl = item?.image_urls?.icon || item?.image_urls?.sd || '';
+      if (imgUrl) {
+        if (!IMG_CACHE[abrev]) IMG_CACHE[abrev] = {};
+        IMG_CACHE[abrev][tier] = imgUrl;
+        loaded++;
+        status.textContent = `Chargement… ${loaded}/${toFetch.length}`;
+      }
+    } catch(e) {}
+  }
+
+  // Batches de 8 en parallèle
+  for (let i = 0; i < toFetch.length; i += 8) {
+    await Promise.all(toFetch.slice(i, i + 8).map(fetchOne));
+  }
+
+  dot.className = 'api-dot ok';
+  if (loaded > 0) {
+    status.textContent = `${loaded} icônes chargées`;
+    renderPrixPage();
+    renderConvPage();
+  } else {
+    status.textContent = 'Héberger sur GitHub Pages pour les icônes';
+  }
+}
+
+function runeImgHtml(abrev, tier, label, group) {
+  const url = IMG_CACHE[abrev]?.[tier];
+  if (url) return `<img src="${url}" style="width:34px;height:34px;object-fit:contain;flex-shrink:0;image-rendering:pixelated;" alt="${label}" onerror="this.style.display='none'">`;
+  // Fallback SVG losange (file:// ou API indisponible)
+  const c = BADGE_COLORS[group] || BADGE_COLORS['Divers'];
+  const init = abrev.length <= 3 ? abrev.toUpperCase() : abrev.slice(0,3).toUpperCase();
+  const fs = init.length >= 3 ? 8 : 10;
+  return `<svg width="34" height="34" viewBox="0 0 34 34" style="flex-shrink:0;" title="${label}">
+    <polygon points="17,2 32,17 17,32 2,17" fill="${c.fill}" stroke="${c.stroke}" stroke-width="1.5"/>
+    <text x="17" y="${17+fs*0.38}" text-anchor="middle" dominant-baseline="middle"
+      font-family="Rajdhani,sans-serif" font-size="${fs}" font-weight="800"
+      fill="${c.text}" letter-spacing="0.3">${init}</text>
+  </svg>`;
+}
+
+async function loadIcons() {
+  // Les icônes sont hardcodées — on simule juste la fin du chargement
+  const dot = document.getElementById('apiDot');
+  const status = document.getElementById('apiStatus');
+  dot.className = 'api-dot ok';
+  status.textContent = 'Icônes chargées';
+  renderPrixPage();
+  renderConvPage();
+}
+
+// ═══ STORAGE ═══
+function saveKey(stat, tier) { return `fm3_price_${stat}_${tier}`; }
+function getPriceVal(stat, tier) {
+  const v = localStorage.getItem(saveKey(stat, tier));
+  return v !== null ? parseInt(v) : null;
+}
+function savePrice(stat, tier, val) {
+  localStorage.setItem(saveKey(stat, tier), val);
+  flashSave();
+}
+function flashSave() {
+  const el = document.getElementById('saveIndicator');
+  el.textContent = '✓ Sauvegardé';
+  el.classList.add('saved');
+  clearTimeout(window._st);
+  window._st = setTimeout(() => { el.textContent = '● Prix sauvegardés'; el.classList.remove('saved'); }, 1500);
+}
+function clearAllPrices() {
+  if (!confirm('Effacer tous les prix sauvegardés ?')) return;
+  RUNE_DATA.forEach(r => ['base','pa','ra'].forEach(t => localStorage.removeItem(saveKey(r.stat, t))));
+  renderPrixPage(); renderConvPage(); updateTCO();
+}
+
+// ═══ FORMAT ═══
+function fmtK(n) {
+  if (n === null || isNaN(n)) return '—';
+  if (n >= 1000000) return (n/1000000).toFixed(n % 1000000 === 0 ? 0 : 2).replace(/\.?0+$/,'') + ' Mk';
+  if (n >= 1000) return (n/1000).toFixed(n % 1000 === 0 ? 0 : 1).replace(/\.?0+$/,'') + ' k';
+  return n.toLocaleString('fr-FR') + ' k';
+}
+
+// ═══ TABS ═══
+function switchTab(t) {
+  const tabs = ['prix','conv','session'];
+  document.querySelectorAll('.tab').forEach((el, i) => el.classList.toggle('active', tabs[i] === t));
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-' + t).classList.add('active');
+  if (t === 'conv') renderConvPage();
+  if (t === 'session') populateSessionSelect();
+}
+
+// ═══ PAGE 1 ═══
+let activeCat = 'Tous';
+function getGroups() {
+  const g = {};
+  RUNE_DATA.forEach(r => { if (!g[r.group]) g[r.group] = []; g[r.group].push(r); });
+  return g;
+}
+const ALL_CATS = ['Tous', 'Caractéristiques', 'Dommages', 'Résistances', 'Divers', 'Exo'];
+
+function buildCatFilter() {
+  document.getElementById('catFilter').innerHTML = ALL_CATS.map(c =>
+    `<div class="cat-btn ${c===activeCat?'active':''}" onclick="setCat('${c}')">${c}</div>`
+  ).join('');
+}
+function setCat(c) { activeCat = c; buildCatFilter(); renderPrixPage(); }
+
+function renderPrixPage() {
+  const search = (document.getElementById('searchPrix')?.value || '').toLowerCase();
+  const groups = getGroups();
+  let html = '';
+  Object.entries(groups).forEach(([grp, runes]) => {
+    if (activeCat !== 'Tous' && activeCat !== grp) return;
+    const filtered = runes.filter(r => !search || r.stat.toLowerCase().includes(search) || r.abrev.toLowerCase().includes(search));
+    if (!filtered.length) return;
+
+    html += `<div class="rune-group">
+      <div class="group-header"><div class="group-dot"></div>${grp} <span class="count-label">(${filtered.length} stats)</span></div>
+      <div class="table-scroll"><table class="rune-table">
+        <thead><tr>
+          <th>Rune</th>
+          <th><span class="tier-badge tier-base">BASE</span></th>
+          <th><span class="tier-badge tier-pa">PA</span></th>
+          <th><span class="tier-badge tier-ra">RA</span></th>
+        </tr></thead>
+        <tbody>`;
+
+    filtered.forEach(r => {
+      html += `<tr>
+        <td><div class="rune-info">
+          ${runeImgHtml(r.abrev, 'base', r.abrev, r.group)}
+          <div class="rune-name-block">
+            <div class="rune-name">${r.stat}</div>
+            <div class="rune-abrev">${r.abrev}</div>
+          </div>
+        </div></td>`;
+
+      ['base','pa','ra'].forEach(tier => {
+        const hasTier = tier === 'base' ? true : tier === 'pa' ? r.hasPa : r.hasRa;
+        if (!hasTier) { html += `<td class="price-cell"><span class="no-tier">—</span></td>`; return; }
+        const v = getPriceVal(r.stat, tier);
+        html += `<td class="price-cell">
+          <input type="number" class="price-input"
+            placeholder="0"
+            value="${v !== null ? v : ''}"
+            onchange="handlePriceChange('${r.stat}','${tier}',this.value)"
+            min="0">
+        </td>`;
+      });
+      html += `</tr>`;
+    });
+    html += `</tbody></table></div></div>`;
+  });
+
+  if (!html) html = `<div class="no-results">Aucune rune trouvée pour "${search}"</div>`;
+  document.getElementById('runeGroups').innerHTML = html;
+}
+
+function handlePriceChange(stat, tier, val) {
+  savePrice(stat, tier, parseInt(val) || 0);
+  if (document.getElementById('page-conv').classList.contains('active')) renderConvPage();
+  updateTCO();
+}
+
+// ═══ PAGE 2 ═══
+function renderConvPage() {
+  const search = (document.getElementById('searchConv')?.value || '').toLowerCase();
+  const eligible = RUNE_DATA.filter(r =>
+    (r.hasPa || r.hasRa) &&
+    (!search || r.stat.toLowerCase().includes(search) || r.abrev.toLowerCase().includes(search))
+  );
+  if (!eligible.length) { document.getElementById('convGroups').innerHTML = `<div class="no-results">Aucune stat trouvée.</div>`; return; }
+
+  let html = '';
+  eligible.forEach(r => {
+    const pBase = getPriceVal(r.stat, 'base');
+    const pPa   = getPriceVal(r.stat, 'pa');
+    const pRa   = getPriceVal(r.stat, 'ra');
+
+    // Ratios : ×3 base = 1 Pa, ×3 Pa = 1 Ra, ×9 base = 1 Ra
+    const craftPaFromBase   = pBase !== null ? pBase * 3 : null;
+    const craftRaFromPa     = pPa   !== null ? pPa   * 3 : null;
+    const craftRaFromBase   = pBase !== null ? pBase * 9 : null;
+
+    html += `<div class="conv-card">
+      <div class="conv-card-header">
+        ${runeImgHtml(r.abrev, 'base', r.abrev, r.group)}
+        <span class="conv-stat-name">${r.stat}</span>
+        <span class="conv-stat-abrev">${r.abrev}</span>
+      </div>
+      <div class="conv-body">`;
+
+    // ── Base → Pa
+    if (r.hasPa) {
+      const diff = (pPa !== null && craftPaFromBase !== null) ? pPa - craftPaFromBase : null;
+      const pct  = (diff !== null && craftPaFromBase > 0) ? (diff / craftPaFromBase * 100) : null;
+      let verdict = '';
+      if (diff !== null) {
+        if (diff > 0) verdict = `<div class="conv-verdict verdict-win"><div>✓ Crafter la Pa rentable<div class="verdict-pct">Économie : ${fmtK(diff)} (${pct?.toFixed(1)}%)</div></div></div>`;
+        else if (diff < 0) verdict = `<div class="conv-verdict verdict-lose"><div>✗ Acheter la Pa en HDV<div class="verdict-pct">Surcoût craft : ${fmtK(Math.abs(diff))} (${pct?.toFixed(1)}%)</div></div></div>`;
+        else verdict = `<div class="conv-verdict verdict-neutral">≈ Prix équivalent</div>`;
+      } else {
+        verdict = `<div class="conv-verdict verdict-neutral">Renseignez les prix Base et Pa</div>`;
+      }
+      html += `<div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Base → Pa (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-base">BASE</span> × 3</span>
+          <span class="conv-value ${craftPaFromBase===null?'no-price':''}">${craftPaFromBase!==null?fmtK(craftPaFromBase):'Prix manquant'}</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> HDV</span>
+          <span class="conv-value ${pPa===null?'no-price':''}">${pPa!==null?fmtK(pPa):'Prix manquant'}</span>
+        </div>
+        ${verdict}
+      </div>`;
+    }
+
+    // ── Pa → Ra
+    if (r.hasRa) {
+      const diff  = (pRa !== null && craftRaFromPa !== null) ? pRa - craftRaFromPa : null;
+      const pct   = (diff !== null && craftRaFromPa > 0) ? (diff / craftRaFromPa * 100) : null;
+      const diffB = (pRa !== null && craftRaFromBase !== null) ? pRa - craftRaFromBase : null;
+      const pctB  = (diffB !== null && craftRaFromBase > 0) ? (diffB / craftRaFromBase * 100) : null;
+      let verdict = '';
+      if (diff !== null) {
+        if (diff > 0) verdict = `<div class="conv-verdict verdict-win"><div>✓ Crafter la Ra (Pa→Ra) rentable<div class="verdict-pct">Économie : ${fmtK(diff)} (${pct?.toFixed(1)}%)</div></div></div>`;
+        else if (diff < 0) verdict = `<div class="conv-verdict verdict-lose"><div>✗ Acheter la Ra en HDV<div class="verdict-pct">Surcoût craft : ${fmtK(Math.abs(diff))} (${pct?.toFixed(1)}%)</div></div></div>`;
+        else verdict = `<div class="conv-verdict verdict-neutral">≈ Prix équivalent</div>`;
+      } else {
+        verdict = `<div class="conv-verdict verdict-neutral">Renseignez les prix Pa et Ra</div>`;
+      }
+      // Bonus base → Ra
+      let hintBase = '';
+      if (diffB !== null) {
+        hintBase = diffB > 0
+          ? `<div class="sub-hint green">Via base directement (×9) : ${fmtK(craftRaFromBase)} — économie ${fmtK(diffB)} (${pctB?.toFixed(1)}%)</div>`
+          : `<div class="sub-hint">Via base directement (×9) : ${fmtK(craftRaFromBase)} — moins avantageux que HDV</div>`;
+      }
+      html += `<div class="conv-section">
+        <div class="conv-section-title"><span class="arrow">→</span> Pa → Ra (× 3)</div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-pa">PA</span> × 3</span>
+          <span class="conv-value ${craftRaFromPa===null?'no-price':''}">${craftRaFromPa!==null?fmtK(craftRaFromPa):'Prix manquant'}</span>
+        </div>
+        <div class="conv-row">
+          <span class="conv-label"><span class="tier-badge tier-ra">RA</span> HDV</span>
+          <span class="conv-value ${pRa===null?'no-price':''}">${pRa!==null?fmtK(pRa):'Prix manquant'}</span>
+        </div>
+        ${verdict}
+        ${hintBase}
+      </div>`;
+    }
+
+    html += `</div></div>`;
+  });
+  document.getElementById('convGroups').innerHTML = html;
+}
+
+// ═══ PAGE 3 ═══
+let sessionLines = [];
+
+function populateSessionSelect() {
+  const sel = document.getElementById('addRuneSelect');
+  if (!sel) return;
+  sel.innerHTML = '';
+  RUNE_DATA.forEach(r => {
+    const tiers = [{ tier:'base', label: r.abrev }];
+    if (r.hasPa) tiers.push({ tier:'pa', label:`Pa ${r.abrev}` });
+    if (r.hasRa) tiers.push({ tier:'ra', label:`Ra ${r.abrev}` });
+    tiers.forEach(({ tier, label }) => {
+      const opt = document.createElement('option');
+      opt.value = JSON.stringify({ stat: r.stat, tier, label, abrev: r.abrev });
+      opt.textContent = `${label} — ${r.stat}`;
+      sel.appendChild(opt);
+    });
+  });
+}
+
+function addSessionLine() {
+  const sel = document.getElementById('addRuneSelect');
+  if (!sel?.value) return;
+  const d = JSON.parse(sel.value);
+  sessionLines.push({ ...d, qtyAchetee: '', qtyRestante: '', prixOverride: '' });
+  renderSessionLines();
+}
+
+function removeSessionLine(i) { sessionLines.splice(i, 1); renderSessionLines(); }
+
+function updateLine(i, field, val) {
+  sessionLines[i][field] = val === '' ? '' : (parseInt(val) || 0);
+  updateTCO();
+}
+
+function renderSessionLines() {
+  const c = document.getElementById('sessionLines');
+  if (!sessionLines.length) { c.innerHTML = `<div class="empty-session">Aucune rune ajoutée.</div>`; updateTCO(); return; }
+  c.innerHTML = sessionLines.map((l, i) => {
+    const tc = l.tier === 'base' ? 'tier-base' : l.tier === 'pa' ? 'tier-pa' : 'tier-ra';
+    const hdvPrice = getPriceVal(l.stat, l.tier);
+    const priceHint = hdvPrice !== null ? `HDV sauvegardé : ${fmtK(hdvPrice)}` : 'Aucun prix sauvegardé';
+    return `<div class="session-line">
+      <div class="session-line-header">
+        <div class="session-line-name">
+          <span class="tier-badge ${tc}">${l.tier.toUpperCase()}</span>
+          ${l.label} — ${l.stat}
+        </div>
+        <button class="del-btn" onclick="removeSessionLine(${i})">✕</button>
+      </div>
+      <div class="session-inputs">
+        <div class="s-input-group">
+          <label>Qté achetée</label>
+          <input type="number" class="s-input" placeholder="100" value="${l.qtyAchetee}" onchange="updateLine(${i},'qtyAchetee',this.value)">
+        </div>
+        <div class="s-input-group">
+          <label>Qté restante</label>
+          <input type="number" class="s-input" placeholder="0" value="${l.qtyRestante}" onchange="updateLine(${i},'qtyRestante',this.value)">
+        </div>
+        <div class="s-input-group">
+          <label>Prix unit. <span style="color:var(--text-dim);font-weight:400;">(auto)</span></label>
+          <input type="number" class="s-input" placeholder="${hdvPrice !== null ? hdvPrice : '?'}" value="${l.prixOverride}" oninput="updateLine(${i},'prixOverride',this.value)" title="${priceHint}">
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  updateTCO();
+}
+
+function resetSession() {
+  if (!confirm('Réinitialiser la session FM ?')) return;
+  sessionLines = [];
+  document.getElementById('sessionItemName').value = '';
+  document.getElementById('itemBrut').value = '';
+  document.getElementById('itemFm').value = '';
+  renderSessionLines(); updateRentab();
+}
+
+function updateTCO() {
+  const itemName = document.getElementById('sessionItemName')?.value || '';
+  document.getElementById('tcoItemName').textContent = itemName || '— Aucun item défini —';
+
+  if (!sessionLines.length) {
+    document.getElementById('tcoLines').innerHTML = `<div class="tco-line"><span class="tco-line-label">Aucune rune ajoutée</span><span class="tco-line-val">—</span></div>`;
+    document.getElementById('tcoTotal').textContent = '0 k';
+    updateRentab(); return;
+  }
+
+  let total = 0, html = '';
+  sessionLines.forEach(l => {
+    const hdvPrice = getPriceVal(l.stat, l.tier);
+    const prixUnit = l.prixOverride !== '' ? parseInt(l.prixOverride) : hdvPrice;
+    const qA = parseInt(l.qtyAchetee) || 0;
+    const qR = parseInt(l.qtyRestante) || 0;
+    const qU = Math.max(0, qA - qR);
+    const coutAchat = prixUnit !== null ? qA * prixUnit : null;
+    const valRest   = prixUnit !== null ? qR * prixUnit : null;
+    const coutReel  = (coutAchat !== null && valRest !== null) ? coutAchat - valRest : null;
+    if (coutReel !== null) total += coutReel;
+    const tc = l.tier === 'base' ? 'tier-base' : l.tier === 'pa' ? 'tier-pa' : 'tier-ra';
+    html += `<div class="tco-line">
+      <span class="tco-line-label"><span class="tier-badge ${tc}">${l.tier.toUpperCase()}</span> ${l.label} — ${qU} utilisées sur ${qA} achetées</span>
+      <span class="tco-line-val">${coutReel !== null ? fmtK(coutReel) : '<span style="color:var(--text-dim);font-size:11px">Prix manquant</span>'}</span>
+    </div>`;
+  });
+  document.getElementById('tcoLines').innerHTML = html;
+  document.getElementById('tcoTotal').textContent = fmtK(total);
+  updateRentab();
+}
+
+function updateRentab() {
+  const brut = parseInt(document.getElementById('itemBrut')?.value) || 0;
+  const fm   = parseInt(document.getElementById('itemFm')?.value) || 0;
+  let tco = 0;
+  sessionLines.forEach(l => {
+    const hdvPrice = getPriceVal(l.stat, l.tier);
+    const prixUnit = l.prixOverride !== '' ? parseInt(l.prixOverride) : hdvPrice;
+    const qA = parseInt(l.qtyAchetee) || 0;
+    const qR = parseInt(l.qtyRestante) || 0;
+    if (prixUnit !== null) tco += Math.max(0, qA - qR) * prixUnit;
+  });
+  const el = document.getElementById('rentabVerdict');
+  if (!brut && !fm) {
+    el.className = 'rentab-verdict verdict-neutral';
+    el.innerHTML = `<div class="main-line">— Renseignez les prix pour calculer la rentabilité</div>`;
+    return;
+  }
+  const plusValue = fm - brut;
+  const profitNet = plusValue - tco;
+  const roi = (brut + tco) > 0 ? (profitNet / (brut + tco) * 100) : 0;
+  if (profitNet > 0) {
+    el.className = 'rentab-verdict verdict-win';
+    el.innerHTML = `<div class="main-line">✓ Session RENTABLE</div><div class="sub-line">+value item : ${fmtK(plusValue)} &nbsp;·&nbsp; TCO runes : ${fmtK(tco)} &nbsp;·&nbsp; Bénéfice net : <strong>${fmtK(profitNet)}</strong> &nbsp;·&nbsp; ROI : ${roi.toFixed(1)}%</div>`;
+  } else if (profitNet < 0) {
+    el.className = 'rentab-verdict verdict-lose';
+    el.innerHTML = `<div class="main-line">✗ Session DÉFICITAIRE</div><div class="sub-line">+value item : ${fmtK(plusValue)} &nbsp;·&nbsp; TCO runes : ${fmtK(tco)} &nbsp;·&nbsp; Perte nette : <strong>${fmtK(Math.abs(profitNet))}</strong> &nbsp;·&nbsp; ROI : ${roi.toFixed(1)}%</div>`;
+  } else {
+    el.className = 'rentab-verdict verdict-neutral';
+    el.innerHTML = `<div class="main-line">≈ Break-even — ni bénéfice ni perte</div>`;
+  }
+}
+
+// ═══ INIT ═══
+buildCatFilter();
+renderPrixPage();
+populateSessionSelect();
+loadIcons();
+</script>
+
+
+</body></html>
